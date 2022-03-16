@@ -1,5 +1,6 @@
 from pytest import mark
 
+from tests.test_data_const import NEW_PET_ID
 from utils import api
 from utils.const_error import INV_RESP_CODE
 from utils.data_utils import is_json_valid_by_scheme, response_values, is_json_the_same
@@ -35,7 +36,7 @@ def test_post_pet_positive_short(name, photo_urls):
             [
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Falco_peregrinus_-_01.jpg/2880px-Falco_peregrinus_-_01.jpg"
             ],
-            9223372000666125120,
+            NEW_PET_ID,
             {"id": 28259559, "name": "deserunt ea ullamco"},
             [
                 {"id": 99781532, "name": "adipisicing ullamco laborum quis"},
@@ -45,7 +46,9 @@ def test_post_pet_positive_short(name, photo_urls):
         )
     ],
 )
-def test_post_pet_positive_full(name, photo_urls, id, category, tags, status):
+def test_post_pet_positive_full(
+    name, photo_urls, id, category, tags, status, delete_pet
+):
     """Проверка работы POST /pet со всеми параметрами"""
     response = api.post_pet(name, photo_urls, id, category, tags, status)
 
