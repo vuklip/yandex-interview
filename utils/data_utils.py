@@ -83,7 +83,7 @@ def ordered(obj):
     else:
         return obj
 
-
+#todo очень плохая проверка для больших json- она возвращает только true/false, а в чем отличия нет
 def is_json_the_same(json_one: str | bytes, json_two: str | bytes):
     """Проверка json на схожесть
 
@@ -148,7 +148,7 @@ def get_value_by_key(str_or_dict, key_with_value):
         if result is not None:
             return result
 
-
+# todo возможно стоит работать не со сторокой в качестве ответа
 def response_values(response_text: str, check_params: dict, partly=False):
     """Проверка значения(-ий) в поле(-ях) тела ответа
 
