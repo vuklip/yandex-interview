@@ -8,7 +8,7 @@ from utils.logger import logged_request_response
 PETSTORE_ENV = os.environ.get("ENV", "test")
 URL = PETSTORE_URLS[PETSTORE_ENV]
 
-
+# todo: это плохая идея, есть еще PATCH, PUT и прочее? Возможно стоит как-то лучше продумать этот клиент
 @logged_request_response
 def _request_post(url, data=None, json=None):
     response = post(url, data, json, timeout=15)
@@ -20,13 +20,13 @@ def _request_get(url, params=None):
     response = get(url, params)
     return response
 
-
 @logged_request_response
 def _request_delete(url, params=None):
     response = delete(url)
     return response
 
 
+#todo это плохая идея передавать поля тела как параметры в этот метод
 def post_pet(
     name: str,
     photo_urls: list,

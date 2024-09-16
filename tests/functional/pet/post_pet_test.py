@@ -18,17 +18,20 @@ from utils.data_utils import is_json_valid_by_scheme, response_values, is_json_t
         )
     ],
 )
+# todo: здесь НЕ происходит удаление созданного pet
 def test_post_pet_positive_short(name, photo_urls):
     """Проверка работы POST /pet с минимальным количеством параметров"""
     response = api.post_pet(name, photo_urls)
 
     assert response.status_code == 200, INV_RESP_CODE
     assert is_json_valid_by_scheme(response.text, "post_pet")
+    # todo проверяем не все тело, а только одно поле?
     assert response_values(response.text, {"name": "king kong"})
 
 
 @mark.positive
 @mark.parametrize(
+    #todo довольно сомнительная параметризация, почему просто не передать тело в качестве параметра? тогда предыдущий тест можно объединить с этим
     "name, photo_urls, id, category, tags, status",
     [
         (
@@ -53,6 +56,7 @@ def test_post_pet_positive_full(
     response = api.post_pet(name, photo_urls, id, category, tags, status)
 
     assert response.status_code == 200, INV_RESP_CODE
+    # todo зачем проверять схемы/конкретное поле если дальше ты польностью проверяешь все тело?
     assert is_json_valid_by_scheme(response.text, "post_pet")
     assert response_values(response.text, {"name": "Peregrine falcon"})
     assert is_json_the_same(response.text, response.request.body)
